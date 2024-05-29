@@ -11,8 +11,6 @@
     font-size: 40px;
     translate: 0 100px;
 }
-.oTurn, .xTurn {
-    border: solid 3px;
-    border-radius: 10px;
-    padding: 5px;
+.active {
+    box-shadow: 0 0 10px 10px rgb(93, 154, 215);
 }
