@@ -1,5 +1,6 @@
 import "../styles/Game.css";
 import { Square } from "./Square";
+import { EndGameModal } from "./EndGameModal";
 import { useState } from "react";
 
 const squares = Array(9).fill(null)
@@ -31,11 +32,23 @@ export function Game () {
         const newContent = [...content]
         newContent[index] = turn
         setContent(newContent)
+        const checkBoardComplete = newContent.every(value => value !== null)
         
-        if (verifyWinner(newContent)) setWinner(turn)
+        if (verifyWinner(newContent)) {
+            setTimeout(() => {
+                setWinner(turn)
+            }, 100);
+        }
+        else if (!verifyWinner(newContent) && checkBoardComplete) {
+            setTimeout(() => {
+                setWinner(false)
+            }, 100);
+        }
+        else {
+            const newTurn = turn == turns.X ? turns.O : turns.X
+            setTurn(newTurn);
+        }
 
-        const newTurn = turn == turns.X ? turns.O : turns.X
-        setTurn(newTurn);
     }
     const verifyWinner = (newContent) => {
         for (const combo of winnerCombos) {
@@ -52,14 +65,37 @@ export function Game () {
             {
                 squares.map((_, index)=> {
                     return (
-                        <Square content= {content[index]} changeTurn= {changeTurn} index= {index} className= "square" key= {index}/>
+                        <Square 
+                            content= {content[index]} 
+                            changeTurn= {changeTurn} 
+                            index= {index} 
+                            className= "square" 
+                            key= {index}
+                        />
                     )
                 })
             }
         </section>
         <section className="showTurn">
-            <Square content={turns.X} changeTurn={changeTurn} index= {null} className={turn == turns.X ? "square active" : "square"}/>
-            <Square content={turns.O} changeTurn={changeTurn} index= {null} className={turn == turns.X ? "square" : "square active"}/>
+            <Square 
+                content={turns.X} 
+                changeTurn={changeTurn} 
+                index= {null} 
+                className={turn == turns.X ? "square active" : "square"}
+            />
+            <Square 
+                content={turns.O} 
+                changeTurn={changeTurn} 
+                index= {null} 
+                className={turn == turns.X ? "square" : "square active"}
+            />
+        </section>
+        <section className={winner !== undefined ? "endGame show" : "endGame hide"}>
+            <EndGameModal 
+                winner={winner} 
+                turn={!winner ? '-' : turn} 
+                changeTurn={changeTurn}
+            />
         </section>
         </>
     )
