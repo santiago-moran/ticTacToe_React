@@ -58,6 +58,11 @@ export function Game () {
         }
         return false
     }
+    const restartGame = () => {
+        setTurn(turns.X)
+        setContent(squares)
+        setWinner(undefined)
+    }
 
     return (
         <>
@@ -95,6 +100,7 @@ export function Game () {
                 winner={winner} 
                 turn={!winner ? '-' : turn} 
                 changeTurn={changeTurn}
+                restartGame={restartGame}
             />
         </section>
         </>
