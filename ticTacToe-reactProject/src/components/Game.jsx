@@ -20,9 +20,15 @@ const winnerCombos = [
 ]
 
 export function Game () {
-    const [turn, setTurn] = useState(turns.X)
-    const [content, setContent] = useState(squares)
-    const [winner, setWinner] = useState(undefined)
+    const [turn, setTurn] = useState(() => {
+        return localStorage.getItem('turn') ?? turns.X
+    })
+    const [content, setContent] = useState(() => {
+        return JSON.parse(localStorage.getItem('content')) ?? squares
+    })
+    const [winner, setWinner] = useState(() => {
+        return localStorage.getItem('winner') ?? undefined
+    })
 
     const changeTurn = (index) => {
         if (content[index] !== null || winner !== undefined) {
@@ -32,23 +38,26 @@ export function Game () {
         const newContent = [...content]
         newContent[index] = turn
         setContent(newContent)
+        localStorage.setItem('content', JSON.stringify(newContent))
         const checkBoardComplete = newContent.every(value => value !== null)
         
         if (verifyWinner(newContent)) {
             setTimeout(() => {
                 setWinner(turn)
+                localStorage.setItem('winner', turn)
             }, 100);
         }
         else if (!verifyWinner(newContent) && checkBoardComplete) {
             setTimeout(() => {
                 setWinner(false)
+                localStorage.setItem('winner', 'false')
             }, 100);
         }
         else {
             const newTurn = turn == turns.X ? turns.O : turns.X
             setTurn(newTurn);
+            localStorage.setItem('turn', newTurn)
         }
-
     }
     const verifyWinner = (newContent) => {
         for (const combo of winnerCombos) {
@@ -62,6 +71,7 @@ export function Game () {
         setTurn(turns.X)
         setContent(squares)
         setWinner(undefined)
+        localStorage.clear()
     }
 
     return (
@@ -102,7 +112,7 @@ export function Game () {
         <section className={winner !== undefined ? "endGame show" : "endGame hide"}>
             <EndGameModal 
                 winner={winner} 
-                turn={!winner ? '-' : turn} 
+                turn={winner == 'false' ? '-' : turn} 
                 changeTurn={changeTurn}
                 restartGame={restartGame}
             />

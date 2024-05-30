@@ -7,7 +7,7 @@ export function EndGameModal ({winner, turn, changeTurn, restartGame}) {
     }
     return (
         <div className= {winner !== undefined ? "modal show" : "modal hide"}>
-            <h2>{!winner ? 'Empate' : 'Ganador'}</h2>
+            <h2>{winner == 'false' ? 'Empate' : 'Ganador'}</h2>
             <div>
                 <Square 
                         content={turn} 
