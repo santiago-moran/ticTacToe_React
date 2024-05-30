@@ -66,6 +66,7 @@ export function Game () {
 
     return (
         <>
+        <h1>TIC TAC TOE</h1>
         <section className="board">
             {
                 squares.map((_, index)=> {
@@ -95,6 +96,9 @@ export function Game () {
                 className={turn == turns.X ? "square" : "square active"}
             />
         </section>
+        <div>
+            <button className="playAgain restart">Restart Game</button>
+        </div>
         <section className={winner !== undefined ? "endGame show" : "endGame hide"}>
             <EndGameModal 
                 winner={winner} 
