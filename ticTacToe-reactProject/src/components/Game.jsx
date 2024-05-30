@@ -97,7 +97,7 @@ export function Game () {
             />
         </section>
         <div>
-            <button className="playAgain restart">Restart Game</button>
+            <button className="playAgain restart" onClick={restartGame}>Restart Game</button>
         </div>
         <section className={winner !== undefined ? "endGame show" : "endGame hide"}>
             <EndGameModal 
