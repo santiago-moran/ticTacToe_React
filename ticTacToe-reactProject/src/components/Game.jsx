@@ -1,6 +1,7 @@
 import "../styles/Game.css";
 import { Square } from "./Square";
 import { EndGameModal } from "./EndGameModal";
+import { PendingGame } from "./PendingGame";
 import { useState } from "react";
 
 const squares = Array(9).fill(null)
@@ -28,6 +29,9 @@ export function Game () {
     })
     const [winner, setWinner] = useState(() => {
         return localStorage.getItem('winner') ?? undefined
+    })
+    const [className, setClassName] = useState(() => {
+        return localStorage.length != 0 ? 'endGame show' : 'endGame hide'
     })
 
     const changeTurn = (index) => {
@@ -71,7 +75,11 @@ export function Game () {
         setTurn(turns.X)
         setContent(squares)
         setWinner(undefined)
+        hideModal()
         localStorage.clear()
+    }
+    const hideModal = () => {
+        setClassName('endGame hide')
     }
 
     return (
@@ -115,6 +123,12 @@ export function Game () {
                 turn={winner == 'false' ? '-' : turn} 
                 changeTurn={changeTurn}
                 restartGame={restartGame}
+            />
+        </section>
+        <section className={className}>
+            <PendingGame 
+            restartGame={restartGame}
+            hideModal= {hideModal}
             />
         </section>
         </>

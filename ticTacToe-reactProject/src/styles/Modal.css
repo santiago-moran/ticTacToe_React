@@ -9,6 +9,8 @@
     border-radius: 10px;
     border: solid 3px;
     box-shadow: 0 0 10px 5px;
+    text-align: center;
+    padding-inline: 10px;
 }
 .hide {
     display: none;
@@ -17,7 +19,7 @@
     display: flex;
 }
 .playAgain {
-    font-size: 20px;
+    font-size: 16px;
     padding: 5px;
     border: solid 2px;
     border-radius: 10px;
@@ -26,4 +28,7 @@
 }
 .playAgain:hover {
     background-color: #ece7e7;
+}
+.restartGame {
+    translate: 0 30px;
 }
