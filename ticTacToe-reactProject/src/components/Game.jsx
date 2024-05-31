@@ -53,7 +53,7 @@ export function Game () {
         }
         else if (!verifyWinner(newContent) && checkBoardComplete) {
             setTimeout(() => {
-                setWinner(false)
+                setWinner('false')
                 localStorage.setItem('winner', 'false')
             }, 100);
         }
