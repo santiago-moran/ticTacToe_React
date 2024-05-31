@@ -13,7 +13,7 @@ h1 {
     justify-content: space-evenly;
     font-size: 40px;
     translate: 0 100px;
-    width: 100%;
+    width: 300px;
 }
 .active {
     box-shadow: 0 0 10px 10px rgb(93, 154, 215);
